@@ -1,0 +1,216 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css" ?>
+<?xml-stylesheet href="chrome://scrapi/skin/scrapi.css" type="text/css"?>
+<!DOCTYPE window SYSTEM "chrome://scrapi/locale/scrapi.dtd">
+<page xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+      id="scrapiPage" title="scrapi"
+      onload="Scrapi.Page.onLoad()"
+      onunload="Scrapi.Page.onUnload()">
+
+  <script type="application/x-javascript" src="chrome://scrapi/content/core.js" />
+  <script type="application/x-javascript" src="chrome://scrapi/content/extract.js" />
+  <script type="application/x-javascript" src="chrome://scrapi/content/scrap.js" />
+  <script type="application/x-javascript" src="chrome://scrapi/content/page.js" />
+
+  <vbox flex="1">
+    <toolbox class="plain">
+      <toolbar class="plain">
+	<toolbarbutton id="scrapiToolUpload" tooltiptext="&scrapi.tool.upload;" oncommand="Scrapi.Page.upload()"/>
+	<toolbarseparator/>
+	<toolbarbutton id="scrapiToolExtract" tooltiptext="&scrapi.tool.extract;"
+		       oncommand="Scrapi.Page.extractEntries()"/>
+	<toolbarbutton id="scrapiToolSort" tooltiptext="&scrapi.tool.sort;" type="menu">
+	  <menupopup>
+	    <menuitem id="scrapiToolSortPost" label="&scrapi.tool.sort.post;"
+		      oncommand="Scrapi.Page.sortElements('posted_at')"/>
+	    <menuitem id="scrapiToolSortPostDesc" label="&scrapi.tool.sort.post_desc;"
+		      oncommand="Scrapi.Page.sortElements('posted_at', true)"/>
+	    <menuitem id="scrapiToolSortScrap" label="&scrapi.tool.sort.scrap;"
+		      oncommand="Scrapi.Page.sortElements('scrapped_at')"/>
+	    <menuitem id="scrapiToolSortScrapDesc" label="&scrapi.tool.sort.scrap_desc;"
+		      oncommand="Scrapi.Page.sortElements('scrapped_at', true)"/>
+	  </menupopup>
+	</toolbarbutton>
+	<toolbarbutton id="scrapiToolRemoveDuplicate" tooltiptext="&scrapi.tool.remove_duplicate;"
+		       oncommand="Scrapi.Page.removeDuplicate()"/>
+	<toolbarseparator/>
+	<toolbarbutton id="scrapiToolNewtab" tooltiptext="&scrapi.tool.newtab;" oncommand="Scrapi.Page.openNewTab()"/>
+	<toolbarbutton id="scrapiToolClosetab" tooltiptext="&scrapi.tool.closetab;" oncommand="Scrapi.Page.closeTab()"/>
+	<spacer flex="1" />
+	<vbox>
+          <image id="scrapiToolLoading" hidden="true"/>
+	  <spacer flex="1" />
+	</vbox>
+      </toolbar>
+    </toolbox>
+
+    <tabbox id="scrapiTabBox" flex="1">
+      <tabs id="scrapiTabs"
+	    onselect="Scrapi.Page.onTabSelect(event)"
+	    ondblclick="Scrapi.Page.onTabsDoubleClick(event)"
+	    datasources="rdf:null"
+	    ref="urn:scrapi:scraps">
+	<template>
+	  <rule>
+	    <tab uri="rdf:*" label="rdf:http://scrapi.jp/scrap/1.0#label"
+		 selected="rdf:http://scrapi.jp/scrap/1.0#selected"
+		 onclick="Scrapi.Page.onTabClick(event)"/>
+	  </rule>
+	</template>
+      </tabs>
+      <tree id="scrapiTree" flex="1" class="plain"
+	    hidecolumnpicker="true"
+	    flags="dont-build-content"
+	    onselect="Scrapi.Page.onTreeSelect()"
+	    ondragstart="Scrapi.Page.onTreeDragStart(event)"
+	    contextmenu="scrapiTreePopup"
+	    ondblclick="Scrapi.Page.onTreeDoubleClick(event)"
+	    datasources="rdf:null">
+	<treecols>
+	  <treecol flex="1" hideheader="true" primary="true" />
+	</treecols>
+	<template>
+	  <rule>
+	    <treechildren flex="1">
+	      <treeitem uri="rdf:*">
+		  <treerow>
+		    <treecell label="rdf:http://scrapi.jp/scrap/1.0#label"
+			      properties="rdf:http://scrapi.jp/scrap/1.0#type
+					  rdf:http://scrapi.jp/scrap/1.0#status
+					  rdf:http://scrapi.jp/scrap/1.0#color
+					  rdf:http://scrapi.jp/scrap/1.0#decoration
+					  rdf:http://scrapi.jp/scrap/1.0#mode"/>
+		  </treerow>
+		</treeitem>
+	    </treechildren>
+	  </rule>
+	</template>
+	<keyset>
+	  <key modifiers="accel" key="A" oncommand="Scrapi.Page.tree.view.selection.selectAll()"/>
+	  <key keycode="VK_RETURN" oncommand="Scrapi.Page.openSelectedEntries()"/>
+	  <key keycode="VK_DELETE" oncommand="Scrapi.Page.removeSelectedEntries()"/>
+	</keyset>
+      </tree>
+    </tabbox>
+
+    <splitter collapse="after"/>
+
+    <deck id="scrapiProperties" index="1"
+	  contextmenu="scrapiTreePopup">
+      <vbox id="scrapiEmptyProperties"/>
+      <vbox id="scrapiLoadingProperties"><label>&scrapi.prop.loading;</label></vbox>
+      <vbox id="scrapiErrorProperties"><label>&scrapi.prop.error;</label></vbox>
+      <vbox id="scrapiTwitterProperties">
+        <hbox>
+	  <vbox>
+            <image id="scrapiTwitterUserImage" width="48" height="48"
+		   onclick="Scrapi.Page.onClickLink(event, document.getElementById('scrapiTwitterUserName').href)"/>
+	    <spacer flex="1"/>
+	  </vbox>
+	  <hbox flex="1">
+	    <description id="scrapiTwitterContent" flex="1"/>
+	  </hbox>
+	</hbox>
+	<hbox id="scrapiTwitterStatusContainer">
+	  <label id="scrapiTwitterTimestamp" class="text-link" onclick="Scrapi.Page.onClickLink(event)"/>
+	  <label id="scrapiTwitterUserName" class="text-link" onclick="Scrapi.Page.onClickLink(event)"/>
+	  <label id="scrapiTwitterReplyTo" class="text-link" onclick="Scrapi.Page.onClickLink(event)"/>
+	  <image id="scrapiTwitterToggleNote" src="chrome://scrapi/skin/note.png"
+		 tooltiptext="&scrapi.prop.togglenote;"
+		 onclick="Scrapi.Page.toggleTwitterNote()"/>
+	</hbox>
+	<textbox id="scrapiTwitterNote" multiline="true" hidden="true" flex="1"
+		 oninput="Scrapi.Page.onInputNote(event)"/>
+      </vbox>
+
+      <vbox id="scrapiNichProperties">
+	<hbox>
+	  <label id="scrapiNichResNumber"/>
+	  <label id="scrapiNichUserName"/>
+	  <text value="[" id="scrapiNichMailBracket1" />
+	  <label id="scrapiNichUserMail"/>
+	  <text value="]" id="scrapiNichMailBracket2" />
+	</hbox>
+	<description id="scrapiNichContent"/>
+	<hbox id="scrapiNichStatusContainer">
+	  <label id="scrapiNichTimestamp" class="text-link" onclick="Scrapi.Page.onClickLink(event)"/>
+	  <text value="ID:" id="scrapiNichUserIDLabel" />
+	  <label id="scrapiNichUserID"/>
+	  <image id="scrapiNichToggleNote" src="chrome://scrapi/skin/note.png"
+		 tooltiptext="&scrapi.prop.togglenote;"
+		 onclick="Scrapi.Page.toggleNichNote()"/>
+	</hbox>
+	<textbox id="scrapiNichNote" multiline="true" hidden="false" flex="1"
+		 oninput="Scrapi.Page.onInputNote(event)"/>
+      </vbox>
+    </deck>
+
+  </vbox>
+
+  <popupset id="scrapiPopup">
+    <popup id="scrapiTreePopup"
+	   onpopupshowing="Scrapi.Page.onPopupShowing(event)">
+      <menuitem id="scrapiMenuOpen" label="&scrapi.menu.open;"
+		oncommand="Scrapi.Page.openSelectedEntries()"/>
+      <menuseparator />
+      <menuitem id="scrapiMenuResponse" label="&scrapi.menu.response;" type="checkbox"
+		oncommand="Scrapi.Page.setResponse(this.getAttribute('checked'))"/>
+      <menuitem id="scrapiMenuBold" label="&scrapi.menu.bold;" type="checkbox"
+		oncommand="Scrapi.Page.setBold(this.getAttribute('checked'))"/>
+      <menu id="scrapiMenuColor" label="&scrapi.menu.color;" class="menu-iconic">
+	<menupopup>
+	  <menuitem id="scrapiMenuColorNone" label="&scrapi.menu.color.none;" class="menuitem-iconic"
+		    oncommand="Scrapi.Page.setColor('')"/>
+	  <menuitem id="scrapiMenuColorBlack" label="&scrapi.menu.color.black;" class="menuitem-iconic"
+		    oncommand="Scrapi.Page.setColor('black')"/>
+	  <menuitem id="scrapiMenuColorRed" label="&scrapi.menu.color.red;" class="menuitem-iconic"
+		    oncommand="Scrapi.Page.setColor('red')"/>
+	  <menuitem id="scrapiMenuColorYellow" label="&scrapi.menu.color.yellow;" class="menuitem-iconic"
+		    oncommand="Scrapi.Page.setColor('yellow')"/>
+	  <menuitem id="scrapiMenuColorGreen" label="&scrapi.menu.color.green;" class="menuitem-iconic"
+		    oncommand="Scrapi.Page.setColor('green')"/>
+	  <menuitem id="scrapiMenuColorCyan" label="&scrapi.menu.color.cyan;" class="menuitem-iconic"
+		    oncommand="Scrapi.Page.setColor('cyan')"/>
+	  <menuitem id="scrapiMenuColorBlue" label="&scrapi.menu.color.blue;" class="menuitem-iconic"
+		    oncommand="Scrapi.Page.setColor('blue')"/>
+	  <menuitem id="scrapiMenuColorPink" label="&scrapi.menu.color.pink;" class="menuitem-iconic"
+		    oncommand="Scrapi.Page.setColor('pink')"/>
+	  <menuitem id="scrapiMenuColorWhite" label="&scrapi.menu.color.white;" class="menuitem-iconic"
+		    oncommand="Scrapi.Page.setColor('white')"/>
+	</menupopup>
+      </menu>
+
+      <menuseparator/>
+      <menuitem id="scrapiMenuSelectAll" label="&scrapi.menu.select.all;"
+		oncommand="Scrapi.Page.selectAllEntries()"/>
+      <menuitem id="scrapiMenuSelectNichID" label="&scrapi.menu.select.nich.id;"
+		oncommand="Scrapi.Page.selectEntries('user_id')"/>
+      <menuitem id="scrapiMenuSelectNichUser" label="&scrapi.menu.select.nich.name;"
+		oncommand="Scrapi.Page.selectEntries('user_name')"/>
+      <menuitem id="scrapiMenuSelectTwitterUser" label="&scrapi.menu.select.twitter.name;"
+		oncommand="Scrapi.Page.selectEntries('user_name')"/>
+      <menuitem id="scrapiMenuSelectInbvert" label="&scrapi.menu.select.invert;"
+		oncommand="Scrapi.Page.selectInvert()"/>
+
+      <menuseparator/>
+      <menuitem id="scrapiMenuExtractNichID" label="&scrapi.menu.extract.nich.id;"
+		oncommand="Scrapi.Page.extractEntries('user_id')"/>
+      <menuitem id="scrapiMenuExtractNichUser" label="&scrapi.menu.extract.nich.name;"
+		oncommand="Scrapi.Page.extractEntries('user_name')"/>
+      <menuitem id="scrapiMenuExtractNichReply" label="&scrapi.menu.extract.nich.reply;"
+		oncommand="Scrapi.Page.extractReplyEntries()"/>
+      <menuitem id="scrapiMenuExtractTwitterUser" label="&scrapi.menu.extract.twitter.name;"
+		oncommand="Scrapi.Page.extractEntries('user_name')"/>
+      <menuitem id="scrapiMenuExtractTwitterReply" label="&scrapi.menu.extract.twitter.reply;"
+		oncommand="Scrapi.Page.extractReplyEntries()"/>
+
+      <menuseparator id="scrapiMenuReloadSeparator"/>
+      <menuitem id="scrapiMenuReload" label="&scrapi.menu.reload;" class="menuitem-iconic"
+		oncommand="Scrapi.Page.reloadSelectedEntries()"/>
+
+      <menuseparator />
+      <menuitem id="scrapiMenuPopupRemove" label="&scrapi.menu.remove;" class="menuitem-iconic"
+		oncommand="Scrapi.Page.removeSelectedEntries()"/>
+    </popup>
+  </popupset>
+</page>

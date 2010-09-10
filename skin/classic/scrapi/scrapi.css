@@ -1,0 +1,226 @@
+/* toolbar */
+#scrapiPage toolbox {
+  -moz-appearance: none;
+  margin: 0px;
+  border-style: none;
+  background-color: #ebe9ed;
+}
+toolbarbutton#scrapiToolUpload {
+  list-style-image: url('chrome://scrapi/skin/tool/upload.png');
+}
+toolbarbutton#scrapiToolSort {
+  list-style-image: url('chrome://scrapi/skin/tool/sort.png');
+}
+toolbarbutton#scrapiToolRemoveDuplicate {
+  list-style-image: url('chrome://scrapi/skin/tool/remove_duplicate.png');
+}
+toolbarbutton#scrapiToolExtract {
+  list-style-image: url('chrome://scrapi/skin/tool/extract.png');
+}
+toolbarbutton#scrapiToolNewtab {
+  list-style-image: url('chrome://scrapi/skin/tool/newtab.png');
+}
+toolbarbutton#scrapiToolClosetab {
+  list-style-image: url('chrome://scrapi/skin/tool/closetab.png');
+}
+image#scrapiToolLoading {
+  list-style-image: url('chrome://scrapi/skin/loading.png');
+  margin: 5px 5px 0 0;
+}
+
+/* document tab */
+tabs#scrapiTabs {
+  background-color: #ebe9ed;
+}
+
+/* tree */
+tree#scrapiTree {
+  -moz-appearance: none;
+  border-width: 0;
+  border-top: solid 1px #879bb3;
+  background-color: #fff;
+  padding: 0;
+  margin: 0;
+}
+
+tree#scrapiTree treechildren::-moz-tree-image(twitter) {
+  list-style-image: url('chrome://scrapi/skin/twitter.png');
+}
+tree#scrapiTree treechildren::-moz-tree-image(nich) {
+  list-style-image: url('chrome://scrapi/skin/2ch.png');
+}
+tree#scrapiTree treechildren::-moz-tree-image(loading) {
+  list-style-image: url('chrome://scrapi/skin/loading.png');
+}
+tree#scrapiTree treechildren::-moz-tree-image(error) {
+  list-style-image: url('chrome://scrapi/skin/warning.png');
+}
+tree#scrapiTree treechildren::-moz-tree-cell-text(error) { color: #999; }
+tree#scrapiTree treechildren::-moz-tree-cell-text(bold) { font-weight: bold; }
+tree#scrapiTree treechildren::-moz-tree-cell-text(black) { color: #000; }
+tree#scrapiTree treechildren::-moz-tree-cell-text(white) { color: #fff; }
+tree#scrapiTree treechildren::-moz-tree-cell-text(red) { color: #f00; }
+tree#scrapiTree treechildren::-moz-tree-cell-text(yellow) { color: #ff0; }
+tree#scrapiTree treechildren::-moz-tree-cell-text(green) { color: #0f0; }
+tree#scrapiTree treechildren::-moz-tree-cell-text(cyan) { color: #0ff; }
+tree#scrapiTree treechildren::-moz-tree-cell-text(blue) { color: #00f; }
+tree#scrapiTree treechildren::-moz-tree-cell-text(pink) { color: #f0f; }
+
+tree#scrapiTree treechildren::-moz-tree-cell(response) {
+  margin-left: 1em;
+}
+
+/* properties */
+
+deck#scrapiProperties {
+  height: 4em;
+  background-color: #fff;
+  padding: 0.3em;
+}
+
+vbox#scrapiLoadingProperties {
+  color: #999;
+}
+vbox#scrapiErrorProperties {
+  color: #999;
+}
+image#scrapiTwitterUserImage {
+  cursor: pointer;
+}
+label#scrapiTwitterUserName {
+  color: #2276bb;
+  text-decoration: none;
+  margin-left: 0;
+  margin-right: 0.2em;
+}
+label#scrapiTwitterTimestamp {
+  color: #999;
+  text-decoration: none;
+  margin-left: 0;
+}
+label#scrapiTwitterReplyTo {
+  color: #999;
+  text-decoration: none;
+  margin-left: 0;
+}
+hbox#scrapiTwitterStatusContainer {
+  -moz-box-align:center;
+  font-size: 90%;
+}
+image#scrapiTwitterToggleNote {
+  cursor: pointer;
+}
+textbox#scrapiTwitterNote {
+  margin: 0;
+  min-height: 3em;
+}
+description#scrapiTwitterContent {
+  word-wrap:break-word
+}
+.bold description#scrapiTwitterContent {
+  font-weight: bold;
+}
+.black description#scrapiTwitterContent { color: #000; }
+.white description#scrapiTwitterContent { color: #fff; }
+.red description#scrapiTwitterContent { color: #f00; }
+.yellow description#scrapiTwitterContent { color: #ff0; }
+.green description#scrapiTwitterContent { color: #0f0; }
+.cyan description#scrapiTwitterContent { color: #0ff; }
+.blue description#scrapiTwitterContent { color: #00f; }
+.pink description#scrapiTwitterContent { color: #f0f; }
+
+
+label#scrapiNichUserName {
+  color: #008000;
+}
+text#scrapiNichMailBracket1,
+text#scrapiNichMailBracket2,
+label#scrapiNichUserMail {
+  margin: 0;
+  color: #999;
+}
+
+hbox#scrapiNichStatusContainer {
+  -moz-box-align:center;
+  font-size: 90%;
+}
+
+label#scrapiNichTimestamp {
+  color: #999;
+}
+
+text#scrapiNichUserIDLabel {
+  color: #999;
+  margin-right: 0;
+}
+label#scrapiNichUserID {
+  color: #999;
+  margin-left: 0;
+}
+
+image#scrapiNichToggleNote {
+  cursor: pointer;
+}
+textbox#scrapiNichNote {
+  margin: 0;
+  min-height: 3em;
+}
+
+.bold description#scrapiNichContent {
+  font-weight: bold;
+}
+.black description#scrapiNichContent { color: #000; }
+.white description#scrapiNichContent { color: #fff; }
+.red description#scrapiNichContent { color: #f00; }
+.yellow description#scrapiNichContent { color: #ff0; }
+.green description#scrapiNichContent { color: #0f0; }
+.cyan description#scrapiNichContent { color: #0ff; }
+.blue description#scrapiNichContent { color: #00f; }
+.pink description#scrapiNichContent { color: #f0f; }
+
+
+description#scrapiNichContent {
+   white-space: pre;
+}
+
+/* popup */
+popup#scrapiTreePopup .menu-iconic-icon {
+    width : 12px !important;
+    height: 12px !important;
+}
+
+menuitem#scrapiMenuPopupRemove {
+   list-style-image: url('chrome://scrapi/skin/menu/remove.png');
+}
+menuitem#scrapiMenuReload {
+   list-style-image: url('chrome://scrapi/skin/menu/reload.png');
+}
+
+menu#scrapiMenuColor {
+   list-style-image: url('chrome://scrapi/skin/menu/color.png');
+}
+menuitem#scrapiMenuColorBlack {
+   list-style-image: url('chrome://scrapi/skin/menu/color/black.png');
+}
+menuitem#scrapiMenuColorRed {
+   list-style-image: url('chrome://scrapi/skin/menu/color/red.png');
+}
+menuitem#scrapiMenuColorYellow {
+   list-style-image: url('chrome://scrapi/skin/menu/color/yellow.png');
+}
+menuitem#scrapiMenuColorGreen {
+   list-style-image: url('chrome://scrapi/skin/menu/color/green.png');
+}
+menuitem#scrapiMenuColorCyan {
+   list-style-image: url('chrome://scrapi/skin/menu/color/cyan.png');
+}
+menuitem#scrapiMenuColorBlue {
+   list-style-image: url('chrome://scrapi/skin/menu/color/blue.png');
+}
+menuitem#scrapiMenuColorPink {
+   list-style-image: url('chrome://scrapi/skin/menu/color/pink.png');
+}
+menuitem#scrapiMenuColorWhite {
+   list-style-image: url('chrome://scrapi/skin/menu/color/white.png');
+}
+

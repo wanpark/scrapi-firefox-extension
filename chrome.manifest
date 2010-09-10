@@ -1,0 +1,4 @@
+content	scrapi	content/scrapi/
+locale  scrapi	ja-JP	locale/ja-JP/scrapi/
+skin	scrapi	classic/1.0	skin/classic/scrapi/
+overlay	chrome://browser/content/browser.xul	chrome://scrapi/content/overlay.xul

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<overlay id="scrapiBrowserOverlay"
+	 xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <!-- SideBar Menu -->
+  <menupopup id="viewSidebarMenu">
+    <menuitem key="key_viewScrapiSidebar" observes="viewScrapiSidebar"/>
+  </menupopup>
+
+  <!-- Open SideBar Shortcut Key -->
+  <keyset id="mainKeyset">
+    <key id="key_viewScrapiSidebar" command="viewScrapiSidebar"
+	 key="K" modifiers="alt"/>
+  </keyset>
+
+  <!-- Open SideBar Command -->
+  <broadcasterset id="mainBroadcasterSet">
+    <broadcaster id="viewScrapiSidebar"
+		 autoCheck="false"
+		 label="scrapi"
+		 type="checkbox" group="sidebar"
+		 sidebarurl="chrome://scrapi/content/page.xul"
+		 sidebartitle="scrapi"
+		 oncommand="toggleSidebar('viewScrapiSidebar');"/>
+  </broadcasterset>
+
+</overlay>
