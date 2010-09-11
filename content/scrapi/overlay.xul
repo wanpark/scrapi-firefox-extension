@@ -11,7 +11,7 @@
   <!-- Open SideBar Shortcut Key -->
   <keyset id="mainKeyset">
     <key id="key_viewScrapiSidebar" command="viewScrapiSidebar"
-	 key="K" modifiers="alt"/>
+	 key="P" modifiers="alt"/>
   </keyset>
 
   <!-- Open SideBar Command -->
