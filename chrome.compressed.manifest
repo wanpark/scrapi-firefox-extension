@@ -1,0 +1,4 @@
+content	scrapi	jar:chrome/scrapi.jar!/content/scrapi/
+locale  scrapi	ja-JP	jar:chrome/scrapi.jar!/locale/ja-JP/scrapi/
+skin	scrapi	classic/1.0	jar:chrome/scrapi.jar!/skin/classic/scrapi/
+overlay	chrome://browser/content/browser.xul	chrome://scrapi/content/overlay.xul

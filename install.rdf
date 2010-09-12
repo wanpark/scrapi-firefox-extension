@@ -6,9 +6,11 @@
     <em:type>2</em:type>
     <em:name>scrapi</em:name>
     <em:version>0.1</em:version>
-    <em:description>Collect entries in twitter or 2ch or etc, and publish.</em:description>
+    <em:description>Collect entries on twitter or 2ch, and publish to http://www.scrapi.jp/</em:description>
     <em:creator>wanpark</em:creator>
     <em:homepageURL>http://www.scrapi.jp/</em:homepageURL>
+    <em:updateURL>http://www.scrapi.jp/firefox/update.rdf</em:updateURL>
+    <em:updateKey>MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDEOlGmsrpJtMdnFeG2r2ePnXEt7LKCz7BJgR45/vGHQTRCdADbvF4gp5TflkCWeTBDR11yiFF43kqv6Qi7DTRY1NU5/yt4wg0zLbY4MpwVEgwkCJOhKE8RU09WaSWiPioOl3Kkd1eYKxp1+ovJPccVAxEJccMdJIVp40Tga6IMOwIDAQAB</em:updateKey>
     <em:targetApplication>
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
