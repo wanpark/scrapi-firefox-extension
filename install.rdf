@@ -5,7 +5,7 @@
     <em:id>scrapi@scrapi.jp</em:id>
     <em:type>2</em:type>
     <em:name>scrapi</em:name>
-    <em:version>0.1</em:version>
+    <em:version>0.2</em:version>
     <em:description>Collect entries on twitter or 2ch, and publish to http://www.scrapi.jp/</em:description>
     <em:creator>wanpark</em:creator>
     <em:homepageURL>http://www.scrapi.jp/</em:homepageURL>
