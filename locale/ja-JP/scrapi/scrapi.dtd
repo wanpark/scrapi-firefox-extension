@@ -2,6 +2,8 @@
 <!ENTITY scrapi.tool.closetab "タブを閉じる">
 <!ENTITY scrapi.tool.upload "投稿する">
 <!ENTITY scrapi.tool.extract "現在のページからポストを抽出">
+<!ENTITY scrapi.tool.insert "エントリーを挿入">
+<!ENTITY scrapi.tool.insert.text "テキスト">
 <!ENTITY scrapi.tool.sort "並び順を変更">
 <!ENTITY scrapi.tool.sort.post "投稿日時が古い順">
 <!ENTITY scrapi.tool.sort.post_desc "投稿日時が新しい順">

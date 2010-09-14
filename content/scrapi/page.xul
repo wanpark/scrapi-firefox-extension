@@ -17,6 +17,12 @@
       <toolbar class="plain">
 	<toolbarbutton id="scrapiToolUpload" tooltiptext="&scrapi.tool.upload;" oncommand="Scrapi.Page.upload()"/>
 	<toolbarseparator/>
+	<toolbarbutton id="scrapiToolInsert" tooltiptext="&scrapi.tool.insert;" type="menu">
+	  <menupopup>
+	    <menuitem id="scrapiToolInsertText" label="&scrapi.tool.insert.text;"
+		      oncommand="Scrapi.Page.insertText()"/>
+	  </menupopup>
+	</toolbarbutton>
 	<toolbarbutton id="scrapiToolExtract" tooltiptext="&scrapi.tool.extract;"
 		       oncommand="Scrapi.Page.extractEntries()"/>
 	<toolbarbutton id="scrapiToolSort" tooltiptext="&scrapi.tool.sort;" type="menu">
@@ -143,6 +149,34 @@
 	<textbox id="scrapiNichNote" multiline="true" hidden="false" flex="1"
 		 oninput="Scrapi.Page.onInputNote(event)"/>
       </vbox>
+
+      <vbox id="scrapiTextProperties">
+	<textbox multiline="true" id="scrapiTextContent" flex="1"
+		 oninput="Scrapi.Page.onInputTextContent(event)"/>
+	<label id="scrapiTextSourceLabel"
+	       onclick="Scrapi.Page.toggleTextSource()">
+	  引用元
+	</label>
+	<grid id="scrapiTextSource">
+	  <columns>
+	    <column/>
+	    <column flex="1"/>
+	  </columns>
+	  <rows>
+	    <row>
+	      <label>URL:</label>
+	      <textbox id="scrapiTextSourceURL" flex="1"
+		       oninput="Scrapi.Page.onInputTextSourceURL(event)"/>
+	    </row>
+	    <row>
+	      <label>タイトル:</label>
+	      <textbox id="scrapiTextSourceTitle" flex="1"
+		       oninput="Scrapi.Page.onInputTextSourceTitle(event)"/>
+	    </row>
+	  </rows>
+	</grid>
+      </vbox>
+
     </deck>
 
   </vbox>
@@ -192,7 +226,7 @@
       <menuitem id="scrapiMenuSelectInbvert" label="&scrapi.menu.select.invert;"
 		oncommand="Scrapi.Page.selectInvert()"/>
 
-      <menuseparator/>
+      <menuseparator id="scrapiMenuExtractSeparator"/>
       <menuitem id="scrapiMenuExtractNichID" label="&scrapi.menu.extract.nich.id;"
 		oncommand="Scrapi.Page.extractEntries('user_id')"/>
       <menuitem id="scrapiMenuExtractNichUser" label="&scrapi.menu.extract.nich.name;"

@@ -10,7 +10,8 @@ const log = Application.console.log;
 
 const NS_SCRAPI = 'http://scrapi.jp/scrap/1.0#';
 
-const UPLOAD_URL = 'http://www.scrapi.jp/scraps.json';
+// const UPLOAD_URL = 'http://www.scrapi.jp/scraps.json';
+const UPLOAD_URL = 'http://www.lscrapi.jp:3000/scraps.json';
 
 const DATA_DIRNAME = 'scrapi';
 
@@ -35,6 +36,7 @@ const LOADING_PROPERTY_INDEX = 1;
 const ERROR_PROPERTY_INDEX = 2;
 const TWITTER_PROPERTY_INDEX = 3;
 const NICH_PROPERTY_INDEX = 4;
+const TEXT_PROPERTY_INDEX = 5;
 
 // ========================================
 // utilities

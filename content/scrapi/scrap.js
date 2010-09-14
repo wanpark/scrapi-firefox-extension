@@ -224,6 +224,21 @@ Scrapi.extend(Scrapi.Scrap.prototype, {
         return str.replace(/&gt;/g, '>').replace(/&lt;/g, '<');
     },
 
+    
+    // ==========
+    // entry insertion by text
+    // ==========
+    insertTextAt: function(text, sourceURL, sourceTitle, index) {
+        this.insertEntryAt(this.addDefaultAttributes({
+            type: 'text',
+            content: text,
+            source_url: sourceURL || '',
+            source_title: sourceTitle || '',
+            label: (text || sourceURL || sourceTitle || '').slice(0, 30)
+        }), index);
+    },
+
+
 
     // ==========
     // selection

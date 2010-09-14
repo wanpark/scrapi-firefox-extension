@@ -74,6 +74,7 @@ Scrapi.Page = {
         this.menuExtractTwitterUser.setAttribute('hidden', entryType == 'twitter' ? 'false' : 'true');
         this.menuExtractTwitterUser.setAttribute('disabled', pageType == 'twitter' ? 'false' : 'true');
         this.menuExtractTwitterReply.setAttribute('hidden', entryType == 'twitter' ? 'false' : 'true');
+        this.menuExtractSeparator.setAttribute('hidden', entryType == 'text' ? 'true' : 'false');
 
         this.menuReloadSeparator.setAttribute('hidden', entryType == 'twitter' ? 'false' : 'true');
         this.menuReload.setAttribute('hidden', entryType == 'twitter' ? 'false' : 'true');
@@ -85,7 +86,8 @@ Scrapi.Page = {
     // ==========
 
     onTabSelect: function(event) {
-        this.scraps.select(this.tabs.selectedIndex - 1);
+        if (this.scraps)
+            this.scraps.select(this.tabs.selectedIndex - 1);
     },
 
     onTabsDoubleClick: function(event) {
@@ -153,7 +155,10 @@ Scrapi.Page = {
             if (dt.types.contains("text/x-moz-tree-index")) {
                 return true;
             } else if (dt.types.contains("text/x-moz-url-data")) {
-                return Scrapi.Page.scrap.canAcceptURL(dt.getData('text/x-moz-url-data'));
+                return true;
+            } else if (dt.types.contains("text/plain")) {
+                // selected text
+                return true;
             }
             return false;
         },
@@ -167,10 +172,23 @@ Scrapi.Page = {
                     to++;
                 if (from != to)
                     Scrapi.Page.scrap.moveEntry(from, to);
-            } else if (dt.types.contains('text/x-moz-url-data')) {
+            } else {
                 if (to != -1 && orient == Ci.nsITreeView.DROP_AFTER)
                     to++;
-                Scrapi.Page.scrap.insertLinkAt(dt.getData('text/x-moz-url-data'), to);
+                if (dt.types.contains('text/x-moz-url-data')) {
+                    let url = dt.getData('text/x-moz-url-data');
+                    if (Scrapi.Page.scrap.canAcceptURL(url)) {
+                        Scrapi.Page.scrap.insertLinkAt(url, to);
+                    } else {
+                        let title = dt.getData('text/x-moz-url-desc') || url;
+                        Scrapi.Page.scrap.insertTextAt(title, url, title, to);
+                    }
+                } else if (dt.types.contains('text/plain')) {
+                    let doc = Scrapi.getActiveDocument();
+                    if (doc) {
+                        Scrapi.Page.scrap.insertTextAt(dt.getData('text/plain'), doc.location.href, doc.title, to);
+                    }
+                }
             }
         },
 
@@ -315,6 +333,43 @@ Scrapi.Page = {
             this.nichNote.focus();
     },
 
+    showTextProperties: function() {
+        if (!this.scrap) return;
+        this.properties.selectedIndex = TEXT_PROPERTY_INDEX;
+        this.textContent.value = this.scrap.getAttribute('content');
+        let sourceURL = this.scrap.getAttribute('source_url');
+        let sourceTitle = this.scrap.getAttribute('source_title');
+        this.textSourceURL.value = sourceURL;
+        this.textSourceTitle.value = sourceTitle;
+        let showSource = sourceURL || sourceTitle;
+        this.textSource.setAttribute('hidden', showSource ? 'false' : 'true');
+        this.textSourceLabel.setAttribute('class', showSource ? 'open' : 'close');
+        this.textProperties.setAttribute(
+            'class',
+            ['decoration', 'color'].map(function(key) this.scrap.getAttribute(key), this).join(' ')
+        );
+
+    },
+
+    toggleTextSource: function() {
+        let visible = (this.textSource.getAttribute('hidden') == 'true');
+        this.textSource.setAttribute('hidden', visible ? 'false' : 'true');
+        this.textSourceLabel.setAttribute('class', visible ? 'open' : 'close');
+    },
+
+    onInputTextContent: function(event) {
+        if (!this.scrap) return;
+        this.scrap.setAttribute('content', event.target.value);
+        this.scrap.setAttribute('label', (event.target.value || '').slice(0, 30));
+    },
+    onInputTextSourceURL: function(event) {
+        if (!this.scrap) return;
+        this.scrap.setAttribute('source_url', event.target.value);
+    },
+    onInputTextSourceTitle: function(event) {
+        if (!this.scrap) return;
+        this.scrap.setAttribute('source_title', event.target.value);
+    },
 
     onInputNote: function(event) {
         if (!this.scrap) return;
@@ -396,6 +451,11 @@ Scrapi.Page = {
         }
     },
 
+    insertText: function() {
+        if (!this.scrap) return;
+        this.scrap.insertTextAt('', '', '', this.tree.view.selection.currentIndex);
+    },
+
     removeDuplicate: function() {
         if (!this.scrap) return;
         let removed = [];
@@ -469,7 +529,6 @@ Scrapi.Page = {
         this.scrap.setAttributeForSelectedElements('color', colorName);
     },
 
-
     onClickLink: function(event, url) {
         if (event.button != 0) return;
         url = url || event.target.href;
@@ -539,8 +598,9 @@ Scrapi.Page = {
     'twitterTimestamp', 'twitterUserName', 'twitterToggleNote', 'twitterNote',
     'nichProperties', 'nichResNumber', 'nichUserName', 'nichUserMail', 'nichContent',
     'nichUserID', 'nichTimestamp', 'nichToggleNote', 'nichNote',
+    'textContent', 'textSourceURL', 'textSourceTitle', 'textSource', 'textSourceLabel',
     'menuBold', 'menuResponse', 'menuExtractNichUser', 'menuExtractNichID', 'menuExtractTwitterUser',
-    'menuSelectNichUser', 'menuSelectNichID', 'menuSelectTwitterUser',
+    'menuSelectNichUser', 'menuSelectNichID', 'menuSelectTwitterUser', 'menuExtractSeparator',
     'menuReloadSeparator', 'menuReload',
     'menuExtractNichReply', 'menuExtractTwitterReply',
     'toolLoading'

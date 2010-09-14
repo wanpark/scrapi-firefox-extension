@@ -8,6 +8,9 @@
 toolbarbutton#scrapiToolUpload {
   list-style-image: url('chrome://scrapi/skin/tool/upload.png');
 }
+toolbarbutton#scrapiToolInsert {
+  list-style-image: url('chrome://scrapi/skin/tool/insert.png');
+}
 toolbarbutton#scrapiToolSort {
   list-style-image: url('chrome://scrapi/skin/tool/sort.png');
 }
@@ -178,10 +181,53 @@ textbox#scrapiNichNote {
 .blue description#scrapiNichContent { color: #00f; }
 .pink description#scrapiNichContent { color: #f0f; }
 
-
 description#scrapiNichContent {
    white-space: pre;
 }
+
+
+vbox#scrapiTextProperties textbox {
+  margin: 0;
+}
+vbox#scrapiTextProperties textbox#scrapiTextContent {
+  min-height: 6em;
+}
+label#scrapiTextSourceLabel {
+  color: #faa000;
+  font-size: 90%;
+  margin: 0.3em 0 0 0.3em;
+  padding-left: 18px;
+  cursor: pointer;
+}
+vbox#scrapiTextProperties label.open {
+  background: url('chrome://scrapi/skin/section_expanded.png') no-repeat left center;
+}
+vbox#scrapiTextProperties label.close {
+  background: url('chrome://scrapi/skin/section_collapsed.png') no-repeat left -3px;
+}
+grid#scrapiTextSource {
+  font-size: 90%;
+}
+grid#scrapiTextSource label {
+  color: #666;
+}
+grid#scrapiTextSource row {
+  -moz-box-align: center;
+  margin-top: 0.2em;
+}
+
+.bold textbox#scrapiTextContent {
+  font-weight: bold;
+}
+.black textbox#scrapiTextContent { color: #000; }
+.white textbox#scrapiTextContent { color: #fff; }
+.red textbox#scrapiTextContent { color: #f00; }
+.yellow textbox#scrapiTextContent { color: #ff0; }
+.green textbox#scrapiTextContent { color: #0f0; }
+.cyan textbox#scrapiTextContent { color: #0ff; }
+.blue textbox#scrapiTextContent { color: #00f; }
+.pink textbox#scrapiTextContent { color: #f0f; }
+
 
 /* popup */
 popup#scrapiTreePopup .menu-iconic-icon {
