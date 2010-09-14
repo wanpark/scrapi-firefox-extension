@@ -10,8 +10,8 @@ const log = Application.console.log;
 
 const NS_SCRAPI = 'http://scrapi.jp/scrap/1.0#';
 
-// const UPLOAD_URL = 'http://www.scrapi.jp/scraps.json';
-const UPLOAD_URL = 'http://www.lscrapi.jp:3000/scraps.json';
+const UPLOAD_URL = 'http://www.scrapi.jp/scraps.json';
+// const UPLOAD_URL = 'http://www.lscrapi.jp:3000/scraps.json';
 
 const DATA_DIRNAME = 'scrapi';
 
