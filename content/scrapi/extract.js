@@ -1,3 +1,4 @@
+// -*- coding: utf-8 -*-
 // require core.js
 
 Scrapi.Extract = {
@@ -206,10 +207,10 @@ Scrapi.Extract = {
             attrs.content = this.unescapeNichContent(contentElement.innerHTML);
             let mail = this.xpath('descendant::a[starts-with(@href, "mailto:")]/@href', element);
             if (mail) attrs.user_mail = mail.nodeValue.replace(/^mailto:/, '');
-            let status = element.textContent.split('¡§');
-            if (status.length < 3) throw null;
+            let status = element.textContent.split('ï¼š');
+            if (status.length < 3) throw 'invalid status';
             let numberMatch = status[0].match(/\d+/);
-            if (!numberMatch) throw null;
+            if (!numberMatch) throw 'invalid res number';
             attrs.res_number = numberMatch[0];
             attrs.user_name = status[1];
             let idMatch = status[2].match(/ID:([^\s]+)/);
@@ -218,7 +219,7 @@ Scrapi.Extract = {
             if (time) attrs.posted_at = time.toUTCString();
             attrs.label = attrs.res_number + ': ' + attrs.content.slice(0, 30);
             let urlMatch = url.match(/^https?:\/\/[^\/]*?\/test\/read\.cgi\/[^\/]+\/\d+\//);
-            if (!urlMatch) throw null;
+            if (!urlMatch) throw 'invalid url';
             attrs.thread_url = urlMatch[0];
             attrs.url = attrs.thread_url + attrs.res_number;
         } catch (error) {
@@ -297,7 +298,7 @@ Scrapi.Extract = {
                 appeared[i] = true;
             }
         };
-        let regexp = /[>¡ä](\d+(\-\d+)?(,\d+(\-\d+)?)*)/g;
+        let regexp = /[>ï¼ž](\d+(\-\d+)?(,\d+(\-\d+)?)*)/g;
         let match;
         while ((match = regexp.exec(content))) {
             match[1].split(',').forEach(function(seq) {
