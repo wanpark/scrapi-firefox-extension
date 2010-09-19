@@ -23,14 +23,14 @@ Scrapi.Extract = {
 
     parseURL: function(url) {
         if (!url) return null;
-        let match = url.match(/^https?:\/\/twitter.com\/([^\/]+)\/status\/(\d+)/);
+        let match = url.match(/^https?:\/\/twitter.com\/([^\/]+)\/status(es)?\/(\d+)/);
         if (match) {
             return {
                 type: 'twitter',
                 url: url,
                 user_name: match[1],
-                status_id: match[2],
-                label: 'twitter:' + match[2],
+                status_id: match[3],
+                label: 'twitter:' + match[3],
                 status: 'loading'
             };
         } else if ((match = url.match(/^(https?:\/\/[^\/]*?\/test\/read\.cgi\/[^\/]+\/\d+\/)(\d+)/))) {

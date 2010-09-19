@@ -599,6 +599,7 @@ Scrapi.Page = {
     'nichProperties', 'nichResNumber', 'nichUserName', 'nichUserMail', 'nichContent',
     'nichUserID', 'nichTimestamp', 'nichToggleNote', 'nichNote',
     'textContent', 'textSourceURL', 'textSourceTitle', 'textSource', 'textSourceLabel',
+    'textProperties',
     'menuBold', 'menuResponse', 'menuExtractNichUser', 'menuExtractNichID', 'menuExtractTwitterUser',
     'menuSelectNichUser', 'menuSelectNichID', 'menuSelectTwitterUser', 'menuExtractSeparator',
     'menuReloadSeparator', 'menuReload',
